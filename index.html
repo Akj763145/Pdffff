@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>PDF Reader</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <!-- File Selection Screen -->
+    <div id="file-screen" class="screen">
+        <div class="header">
+            <h2>PDF Reader</h2>
+        </div>
+
+        <div class="file-input-section">
+            <input type="file" id="file-input" accept=".pdf" class="hidden">
+            <button id="select-file-btn" class="select-file-btn">
+                <span class="file-icon">📄</span>
+                <span>Choose PDF File</span>
+            </button>
+        </div>
+
+        <!-- Recent Files Section -->
+        <div id="recent-files" class="recent-files">
+            <h3>Recent Files</h3>
+            <div id="recent-files-list" class="file-list">
+                <!-- Recent files will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Viewer Screen -->
+    <div id="viewer-screen" class="screen hidden">
+        <div class="viewer-header">
+            <button id="viewer-back-btn" class="icon-btn">←</button>
+            <div class="file-title">Document.pdf</div>
+            <button id="viewer-menu-btn" class="icon-btn">⋮</button>
+        </div>
+
+        <div class="viewer-container">
+            <canvas id="pdf-canvas"></canvas>
+        </div>
+
+        <div class="viewer-controls">
+            <button id="prev-page" class="control-btn">←</button>
+            <span id="page-info">1 / 1</span>
+            <button id="next-page" class="control-btn">→</button>
+            <button id="zoom-out" class="control-btn">-</button>
+            <span id="zoom-level">100%</span>
+            <button id="zoom-in" class="control-btn">+</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
