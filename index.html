@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PDF Reader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
@@ -12,45 +12,84 @@
     <!-- File Selection Screen -->
     <div id="file-screen" class="screen">
         <div class="header">
-            <h2>PDF Reader</h2>
+            <h2><svg class="header-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/></svg> PDF Viewer</h2>
         </div>
-
+        
         <div class="file-input-section">
-            <input type="file" id="file-input" accept=".pdf" class="hidden">
-            <button id="select-file-btn" class="select-file-btn">
-                <span class="file-icon">📄</span>
-                <span>Choose PDF File</span>
-            </button>
-        </div>
-
-        <!-- Recent Files Section -->
-        <div id="recent-files" class="recent-files">
-            <h3>Recent Files</h3>
-            <div id="recent-files-list" class="file-list">
-                <!-- Recent files will be populated by JavaScript -->
+            <div class="select-file-btn" id="select-file-btn">
+                <div class="file-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                </div>
+                <span>Select PDF File</span>
+                <input type="file" id="file-input" accept=".pdf" style="display: none;">
             </div>
+        </div>
+        
+        <div class="recent-files">
+            <h3>Recent Files</h3>
+            <div class="file-list" id="recent-files-list">
+                <div class="no-files">No recent files</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="password-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Password Required</h3>
+            <p>This PDF is password protected. Please enter the password to open it.</p>
+            <div class="password-input-container">
+                <input type="password" id="pdf-password" placeholder="Enter password" autocomplete="new-password">
+                <div class="password-actions">
+                    <button id="password-cancel" class="modal-btn cancel-btn">Cancel</button>
+                    <button id="password-submit" class="modal-btn submit-btn">Open</button>
+                </div>
+            </div>
+            <div id="password-error" class="password-error hidden">Incorrect password. Please try again.</div>
         </div>
     </div>
 
     <!-- PDF Viewer Screen -->
     <div id="viewer-screen" class="screen hidden">
         <div class="viewer-header">
-            <button id="viewer-back-btn" class="icon-btn">←</button>
-            <div class="file-title">Document.pdf</div>
-            <button id="viewer-menu-btn" class="icon-btn">⋮</button>
+            <button class="icon-btn" id="back-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                </svg>
+            </button>
+            <div class="file-title" id="file-title">Document.pdf</div>
+            <div></div>
         </div>
-
+        
         <div class="viewer-container">
             <canvas id="pdf-canvas"></canvas>
         </div>
-
+        
         <div class="viewer-controls">
-            <button id="prev-page" class="control-btn">←</button>
-            <span id="page-info">1 / 1</span>
-            <button id="next-page" class="control-btn">→</button>
-            <button id="zoom-out" class="control-btn">-</button>
+            <button class="control-btn" id="zoom-out-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19,13H5V11H19V13Z"/>
+                </svg>
+            </button>
             <span id="zoom-level">100%</span>
-            <button id="zoom-in" class="control-btn">+</button>
+            <button class="control-btn" id="zoom-in-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                </svg>
+            </button>
+            <button class="control-btn" id="prev-page-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                </svg>
+            </button>
+            <span id="page-info">1 / 1</span>
+            <button class="control-btn" id="next-page-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                </svg>
+            </button>
         </div>
     </div>
 
